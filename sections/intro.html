@@ -2,12 +2,292 @@
   <head>
     <title>Shallow Frontend</title>
     <link rel="stylesheet" href="../public/reveal.css">
-    <link rel="stylesheet" href="../public/theme/blood.css">
+    <link rel="stylesheet" href="../public/theme/biege.css">
+    <style type="text/css">
+      img {
+        max-height: 45vh !important;
+        width: auto;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>Shallow Frontend</section>
+        <section>Introduction</section>
+
+        <section>
+          <img src="https://www.google.ru/chrome/assets/common/images/marquee/browser-features.jpg">
+
+          <aside class="notes">
+            Все взаимодействие со страшными пользователями и API через браузер
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h4>Объектная Модель Документа (DOM)</h4>
+            <p>Программный интерфейс для HTML и XML документов</p>
+
+            <aside class="notes">
+              <p>+ CSSOM</p>
+            </aside>
+          </section>
+
+          <section>
+            <p>Когда-то все было просто</p>
+            <img src="https://raw.githubusercontent.com/bpesquet/thejsway/master/manuscript/images/intro03-01.jpg">
+          </section>
+
+          <section>
+            <p>А теперь не очень</p>
+            <img src="https://www.blogotechblog.com/wp-content/uploads/2011/09/New-Facebook-interface.png">
+          </section>
+
+          <section>
+            <p>А теперь не очень</p>
+            <ul>
+              <li><b>HTML</b> 5 версия, 2014 год</li>
+              <li><b>CSS</b> 3 версия, в разработке</li>
+              <li><b>JavaScript</b> ECMA-262, 7я версия, 2016 год</li>
+            </ul>
+
+            <aside class="notes">
+
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>HTML</h3>
+            <p>HyperText Markup Language</p>
+            <p>Существует с 90х, стандарт W3C от 1997 года</p>
+
+            <aside class="notes">
+              <p>Обратная совместимость начиная с 5й версии, модульность</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>HTML 5</h3>
+            <pre><code data-trim data-noescape>
+              &lt;!doctype html>
+              &lt;html>
+                &lt;head>
+                  &lt;meta charset="UTF-8">
+                  &lt;title>Example document&lt;/title>
+                &lt;/head>
+                &lt;body>
+                  &lt;p>Example paragraph&lt;/p>
+                &lt;/body>
+              &lt;/html>
+            </code></pre>
+
+            <aside class="notes">
+
+            </aside>
+          </section>
+
+          <section>
+            <h3>HTML 5</h3>
+            <img src="https://i.imgur.com/pneqiis.jpg">
+            <p><a target="_blank" href="https://www.w3.org/TR/html5-diff/">Отличия</a></p>
+          </section>
+
+          <section>
+            <h3>HTML 5</h3>
+            <h4>Элементы</h4>
+            <ul>
+              <li>Семантическая верстка (section, article, aside, header, footer, nav, dialog, figure)</li>
+              <li>Мультимедия (audio, video, embed)</li>
+              <li>canvas</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>HTML 5</h3>
+            <h4>Атрибуты</h4>
+            <ul>
+              <li>Формы/инпуты (autocomplete, валидация)</li>
+              <li>Асинхронная загрузка скриптов</li>
+              <li>contenteditable</li>
+              <li>draggable</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>CSS</h3>
+            <p>Cascading Style Sheets</p>
+            <pre><code data-trim data-noescape>
+              #para1 {
+                text-align: center;
+                color: red;
+              }
+            </code></pre>
+            <p><a target="_blank" href="http://howtocenterincss.com/">Проблемы</a></p>
+          </section>
+
+          <section>
+            <h3>CSS</h3>
+            <iframe src="https://giphy.com/embed/13XW2MJE0XCoM0" width="480" height="361" frameBorder="0" class="giphy-embed"></iframe>
+          </section>
+
+          <section>
+            <h3>CSS 3</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/CSS3_taxonomy_and_status_by_Sergey_Mavrody.svg">
+          </section>
+
+          <section>
+            <h3>CSS 3</h3>
+
+            <ul>
+              <li>Animations</li>
+              <li>Transform</li>
+              <li>Media queries</li>
+              <li><a target="_blank" href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox</a></li>
+              <li><a target="_blank" href="https://css-tricks.com/snippets/css/complete-guide-grid/">Grid</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <b>Не только CSS</b>
+            <br>
+            <ul>
+              <li><a target="_blank" href="http://sass-lang.com/">SASS/SCSS</a></li>
+              <li><a target="_blank" href="http://lesscss.org/">LESS</a></li>
+              <li><a target="_blank" href="http://stylus-lang.com/">Stylus</a></li>
+              <li><a target="_blank" href="http://postcss.org/">PostCSS</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <b>Не cтолько CSS</b>
+            <br>
+            <ul>
+              <li><a target="_blank" href="https://getbootstrap.com/">Bootstrap</a></li>
+              <li><a target="_blank" href="https://foundation.zurb.com/">Foundation</a></li>
+              <li><a target="_blank" href="https://semantic-ui.com/">Semantic UI</a></li>
+              <li><a target="_blank" href="https://bulma.io/">Bulma</a></li>
+              <li><a target="_blank" href="https://picturepan2.github.io/spectre/">Spectre</a></li>
+              <li>Тысячи их</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>JavaScript</h3>
+            <p>Мультипарадигменный язык программирования</p>
+            <ul>
+              <li>динамическая типизация</li>
+              <li>слабая типизация</li>
+              <li>автоматическое управление памятью</li>
+              <li>прототипное наследование</li>
+              <li>функции как объекты первого класса</li>
+            </ul>
+          </section>
+
+          <section>
+            <img src="https://raw.githubusercontent.com/bpesquet/thejsway/master/manuscript/images/intro03-02.png">
+
+            <aside class="notes">
+              <p>ECMA-262, TC-39, Ноябрь 1996.</p>
+              <p>ECMAScript из-за трейдмарка</p>
+              <p>1 версия в Июне 1997</p>
+              <p>2 версия для фиксов ECMA/ISO в Июне 1998</p>
+              <p>3 версия в Декабре 1999, regexp, исключения, instanceof</p>
+              <p>Internet Explorer 5, AJAX</p>
+            </aside>
+          </section>
+
+          <section>
+            <b>ES 5</b>
+            <br>
+            <ul>
+              <li><a target="_blank" href="http://speakingjs.com/es5/ch07.html#strict_mode">Strict mode</a></li>
+              <li>get/set для объектов</li>
+              <li>Метапрограммирование (create, defineProperty, keys, getOwnPropertyNames, seal, freeze)</li>
+              <li>Array методы</li>
+              <li>JSON</li>
+            </ul>
+          </section>
+
+          <section>
+            <b>ES 6(2015)</b>
+            <br>
+            <ul>
+              <li>Модули</li>
+              <li>Стрелочные функции</li>
+              <li>Классы</li>
+              <li><a target="_blank" href="https://github.com/lukehoban/es6features">И еще очень многое</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <b>ES 7(2016)</b>
+            <br>
+            <ul>
+              <li>Array.prototype.includes</li>
+              <li>Оператор возведения в степень</li>
+            </ul>
+          </section>
+
+          <section>
+            <b>ES 8(2017)</b>
+            <br>
+            <ul>
+              <li>async/await</li>
+              <li>String.proptotype.padStart, padEnd</li>
+              <li>Разделение памяти и атомарные операции</li>
+            </ul>
+          </section>
+
+          <section>
+            <p>Не только JS</p>
+            <p><a target="_blank" href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js">List of languages that compile to JS</a></p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <b>Node.js</b>
+            <br>
+            <p>V8(JS движок) + libUV + асинхронные I/O библиотеки</p>
+
+            <aside class="notes">
+              <p>Событийно-ориентированное программирование (СОП, Event-Driven Programming / EDP) — парадигма программирования, в которой выполнение программы определяется событиями.</p>
+              <p>Парадигма СОП активно применяется при разработке GUI, однако, применение ей нашлось и на стороне сервера. В 1999 году, обслуживая популярный в то время публичный FTP-сервер Simtel, его администратор Ден Кегель заметил, что узел на гигабитном канале по аппаратным показателям должен был бы справляться с нагрузкой в 10 000 соединений, но программное обеспечение этого не позволяло. Проблема была связана с большим количество программных потоков, каждый из которых создавался на отдельное соединение.</p>
+              <p>Идея событийного цикла, работающего в одном потоке, решала эту проблему. Подобные реализации есть не только в мире JavaScript (Node.js). К примеру, Asyncio и Twisted в Python, EventMachine и Celluloid в Ruby, Vert.x в Java. Еще один яркий представитель подобной реализации —  прокси-сервер Nginx.</p>
+              <p>В основе СОП лежит Событийный Цикл (Event Loop) — программная конструкция, которая занимается диспетчеризацией событий и сообщений в программе.</p>
+              <p>Цикл, в свою очередь, работает с асинхронным вводом/выводом, или неблокирующим вводом/выводом, что является формой обработки данных, который позволяет другим процессам продолжить выполнение до того, как передача будет завершена.</p>
+              <p>Функция обратного вызова (Callback) — возможность передачи исполняемого кода в качестве одного из параметров другого кода. Подобная техника позволяет нам удобно работать с асинхронным вводом/выводом.</p>
+            </aside>
+          </section>
+
+          <section>
+            <b>Node.js</b>
+            <br>
+            <p>Менеджер пакетов NPM</p>
+          </section>
+        </section>
+
+        <section>
+          <p>Полезное</p>
+          <ul>
+            <li><a target="_blank" href="https://codepen.io/">Codepen</a></li>
+            <li><a target="_blank" href="http://jsbin.com/">JSBin</a></li>
+            <li><a target="_blank" href="https://developer.mozilla.org/">MDN</a></li>
+            <li><a target="_blank" href="https://caniuse.com/">Can I Use</a></li>
+            <li><a target="_blank" href="https://habrahabr.ru/company/zfort/blog/">Zfort blog</a></li>
+          </ul>
+        </section>
+
+
+        <section>
+          <p>Спасибо за внимание</p>
+        </section>
       </div>
     </div>
     <script src="../public/head.min.js"></script>
