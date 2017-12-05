@@ -9,16 +9,881 @@
         width: auto;
       }
     </style>
+
+    <style type="text/css">
+      .example {
+        background: #333;
+        width: 100%;
+        min-height: 3em;
+      }
+      .example .box {
+        padding: 10px;
+        text-align: center;
+        background: #999;
+        color: white;
+      }
+      .example .box-1 {
+        background: #e74c3c;
+      }
+      .example .box-2 {
+        background: #3498db;
+      }
+      .example .box-3 {
+        background: #f1c40f;
+      }
+      .example .box-4 {
+        background: #1abc9c;
+      }
+      .example .box-5 {
+        background: #9b59b6;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
         <section>Flexbox/Grid</section>
 
+        <!-- Flexbox -->
         <section>
+          <section>
+            <h4>Flexbox</h4>
 
-          <aside class="notes">
-          </aside>
+            <aside class="notes">
+              Размещает элементы в контейнере
+            </aside>
+          </section>
+
+          <section>
+            <pre><code data-trim data-noescape>
+              &lt;div class="example">
+                &lt;div class="box box-1">1&lt;/div>
+                &lt;div class="box box-2">2&lt;/div>
+                &lt;div class="box box-3">3&lt;/div>
+                &lt;div class="box box-4">4&lt;/div>
+                &lt;div class="box box-5">5&lt;/div>
+              &lt;/div>
+            </code></pre>
+
+            <pre><code data-trim data-noescape>
+              .example {
+                background: #333;
+                width: 100%;
+                min-height: 3em;
+              }
+              .example .box {
+                padding: 10px;
+                text-align: center;
+                color: white;
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <style type="text/css">
+
+            </style>
+            <div class="example zero">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e1 {
+                display: flex;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: row;
+              }
+            </code></pre>
+            <div class="example e1">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e2 {
+                display: flex;
+                flex-direction: row-reverse;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: row-reverse;
+              }
+            </code></pre>
+            <div class="example e2">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e3 {
+                display: flex;
+                flex-direction: column;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: column;
+              }
+            </code></pre>
+            <div class="example e3">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e1-1 {
+                display: flex;
+                flex-direction: row;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: row;
+              }
+            </code></pre>
+            <div class="example e1-1">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e1-2 {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+              }
+            </code></pre>
+            <div class="example e1-2">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e1-3 {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap-reverse;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap-reverse;
+              }
+            </code></pre>
+            <div class="example e1-3">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+              <div class="box">etc</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e4 {
+                display: flex;
+                justify-content: flex-end;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: flex-end;
+              }
+            </code></pre>
+            <div class="example e4">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e5 {
+                display: flex;
+                justify-content: center;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: center;
+              }
+            </code></pre>
+            <div class="example e5">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e6 {
+                display: flex;
+                justify-content: space-between;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+              }
+            </code></pre>
+            <div class="example e6">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e7 {
+                display: flex;
+                justify-content: space-around;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-around;
+              }
+            </code></pre>
+            <div class="example e7">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e8 {
+                display: flex;
+                justify-content: space-evenly;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-evenly;
+              }
+            </code></pre>
+            <div class="example e8">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e9 {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              }
+            </code></pre>
+            <div class="example e9">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e10 {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+              }
+            </code></pre>
+            <div class="example e10">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e11 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+            </code></pre>
+            <div class="example e11">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e12 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              .example.e12 .box-5 {
+                order: -1;
+              }
+              .example.e12 .box-1 {
+                order: 1;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              .example .box-5 {
+                order: -1;
+              }
+              .example .box-1 {
+                order: 1;
+              }
+            </code></pre>
+            <div class="example e12">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e13 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              .example.e13 .box-1 {
+                flex-grow: 1;
+              }
+              .example.e13 .box-2 {
+                flex-grow: 2;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+              .example .box-1 {
+                flex-grow: 1;
+              }
+              .example .box-2 {
+                flex-grow: 2;
+              }
+            </code></pre>
+            <div class="example e13">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e14 {
+                display: flex;
+                align-items: center;
+              }
+              .example.e14 .box {
+                flex-basis: 100px;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                align-items: center;
+              }
+              .example .box {
+                flex-basis: 100px;
+              }
+            </code></pre>
+            <div class="example e14">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e15 {
+                display: flex;
+                align-items: center;
+              }
+              .example.e15 .box {
+                flex-basis: 100px;
+              }
+              .example.e15 .box-1 {
+                flex: 0 0 100px;
+              }
+              .example.e15 .box-2 {
+                flex: 1 1 100px;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                align-items: center;
+              }
+              .example .box {
+                flex-basis: 100px;
+              }
+              .example .box-1 {
+                flex: 0 0 100px;
+              }
+              .example .box-2 {
+                flex: 1 1 100px;
+              }
+            </code></pre>
+            <div class="example e15">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e16 {
+                display: flex;
+                align-items: flex-start;
+              }
+              .example.e16 .box-4 {
+                align-self: flex-end;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: flex;
+                align-items: flex-start;
+              }
+              .example .box-4 {
+                align-self: flex-end;
+              }
+            </code></pre>
+            <div class="example e16">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <img src="images/02-flexbox-caniuse.png">
+          </section>
+
+          <section>
+            <h6>Cheatsheet</h6>
+            <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">CSS Tricks</a>
+          </section>
+        </section>
+
+        <!-- Grid -->
+        <section>
+          <section>
+            <h4>Grid</h4>
+
+            <aside class="notes">
+              Скорее для Layout'ов
+            </aside>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e17 {
+                display: grid;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: grid;
+              }
+            </code></pre>
+            <div class="example e17">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e18 {
+                display: grid;
+                grid-template-columns: 100px 1fr 2fr 100px 1fr;
+                grid-template-rows: 2em;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: grid;
+                grid-template-columns: 100px 1fr 2fr 100px 1fr;
+                grid-template-rows: 2em;
+              }
+            </code></pre>
+            <div class="example e18">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e19 {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+              }
+            </code></pre>
+            <div class="example e19">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e19-1 {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: 1fr 2fr;
+                justify-items: center;
+                align-items: end;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+                justify-items: center;
+                align-items: end;
+              }
+            </code></pre>
+            <div class="example e19-1">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e19-2 {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+              }
+              .example.e19-2 .box-2 {
+                grid-column: 1 / span 2;
+                grid-row: 1;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                display: grid;
+                grid-template-columns: 100px 2fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+              }
+              .example .box-2 {
+                grid-column: 1 / span 2;
+                grid-row: 1;
+              }
+            </code></pre>
+            <div class="example e19-2">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e20 {
+                display: grid;
+                grid-template-columns: 100px 1fr;
+                grid-template-rows: 100px 1fr 2em;
+                grid-template-areas: "logo header" "nav content" "footer footer";
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                grid-template-columns: 100px 1fr;
+                grid-template-rows: 2em 1fr 1em;
+                grid-template-areas: "logo header"
+                    "nav content"
+                    "footer footer";
+              }
+            </code></pre>
+            <div class="example e20">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e21 {
+                display: grid;
+                grid-template-columns: 100px 1fr;
+                grid-template-rows: 100px 1fr 2em;
+                grid-template-areas: "logo header" "nav content" "footer footer";
+              }
+              .example.e21 .box-1 {
+                grid-area: header;
+              }
+              .example.e21 .box-2 {
+                grid-area: content;
+              }
+              .example.e21 .box-3 {
+                grid-area: footer;
+              }
+              .example.e21 .box-4 {
+                grid-area: nav;
+              }
+              .example.e21 .box-5 {
+                grid-area: logo;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .box-1 { grid-area: header; }
+              .box-2 { grid-area: content; }
+              .box-3 { grid-area: footer; }
+              .box-4 { grid-area: nav; }
+              .box-5 { grid-area: logo; }
+            </code></pre>
+            <div class="example e21">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <style type="text/css">
+              .example.e22 {
+                display: grid;
+                grid-template-columns: 100px 1fr;
+                grid-template-rows: 100px 1fr 2em;
+                grid-template-areas: "logo header" "nav content" "footer footer";
+                grid-gap: 5px 10px;
+              }
+              .example.e22 .box-1 {
+                grid-area: header;
+              }
+              .example.e22 .box-2 {
+                grid-area: content;
+              }
+              .example.e22 .box-3 {
+                grid-area: footer;
+              }
+              .example.e22 .box-4 {
+                grid-area: nav;
+              }
+              .example.e22 .box-5 {
+                grid-area: logo;
+              }
+            </style>
+            <pre><code data-trim data-noescape>
+              .example {
+                grid-gap: 5px 10px;
+              }
+            </code></pre>
+            <div class="example e22">
+              <div class="box box-1">1</div>
+              <div class="box box-2">2</div>
+              <div class="box box-3">3</div>
+              <div class="box box-4">4</div>
+              <div class="box box-5">5</div>
+            </div>
+          </section>
+
+          <section>
+            <img src="images/02-grid-caniuse.png">
+          </section>
+
+          <section>
+            <h6>Cheatsheet</h6>
+            <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">CSS Tricks</a>
+          </section>
         </section>
 
         <section>
