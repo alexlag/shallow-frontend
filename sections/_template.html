@@ -3,6 +3,7 @@
     <title>Shallow Frontend</title>
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
+    <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
     <style type="text/css">
       img {
         max-height: 45vh !important;
@@ -32,7 +33,8 @@
       Reveal.initialize({
         controls: false,
         dependencies: [
-          { src: '../public/notes/notes.js', async: true }
+          { src: '../public/notes/notes.js', async: true },
+          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
         ]
       })
     </script>

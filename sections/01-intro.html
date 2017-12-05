@@ -3,6 +3,7 @@
     <title>Shallow Frontend</title>
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
+    <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
     <style type="text/css">
       img {
         max-height: 45vh !important;
@@ -70,7 +71,7 @@
 
           <section>
             <h3>HTML 5</h3>
-            <pre><code data-trim data-noescape>
+            <pre><code data-trim>
               &lt;!doctype html>
               &lt;html>
                 &lt;head>
@@ -120,7 +121,7 @@
           <section>
             <h3>CSS</h3>
             <p>Cascading Style Sheets</p>
-            <pre><code data-trim data-noescape>
+            <pre><code data-trim>
               #para1 {
                 text-align: center;
                 color: red;
@@ -315,7 +316,8 @@
       Reveal.initialize({
         controls: false,
         dependencies: [
-          { src: '../public/notes/notes.js', async: true }
+          { src: '../public/notes/notes.js', async: true },
+          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
         ]
       })
     </script>
