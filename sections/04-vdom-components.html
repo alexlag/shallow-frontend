@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
     <style type="text/css">
       img {
-        max-height: 45vh !important;
+        max-height: 50vh !important;
         width: auto;
       }
     </style>
@@ -17,9 +17,246 @@
         <section>Virtual DOM and Components</section>
 
         <section>
+          <h4>Пример</h4>
 
-          <aside class="notes">
-          </aside>
+          <section>
+            <img src="images/04-toggle.png">
+          </section>
+
+          <section>
+            <pre class="html"><code data-trim>
+              &lt;button class="SlideBtn is-active js-SlideBtn">
+                &lt;span class="SlideBtn-knob">&lt;/span>
+              &lt;/button>
+            </code></pre>
+            <pre><code data-trim>
+              $('.js-SlideBtn').on('click', (evt) => {
+                $(evt.currentTarget).toggleClass('is-active');
+              });
+            </code></pre>
+
+            <aside class="notes">
+              Недекларативное описание, неявное состояние
+            </aside>
+          </section>
+
+          <section>
+            <pre class="html"><code data-trim>
+            &lt;button class="SlideBtn is-active js-SlideBtn">
+              &lt;span class="SlideBtn-label visuallyhidden">On&lt;/span>
+              &lt;span class="SlideBtn-knob">&lt;/span>
+            &lt;/button>
+            </code></pre>
+
+            <pre><code data-trim>
+              $('.js-SlideBtn').on('click', (evt) => {
+                const $btn = $(evt.currentTarget);
+                const isActive = $btn.hasClass('is-active');
+                const $label = $btn.find('.SlideBtn-label');
+                if (isActive) {
+                  $label.text('Off');
+                  $btn.removeClass('is-active');
+                } else {
+                  $label.text('On');
+                  $btn.addClass('is-active');
+                }
+              });
+            </code></pre>
+
+            <aside class="notes">
+              Недекларативное описание, неявное состояние, дублирование состояния, накопление проблем
+            </aside>
+          </section>
+
+          <section>
+            <pre class="javascript"><code data-trim>
+              function render($container, state) {
+                const cls = (state.isActive) ? 'is-active' : '';
+                const txt = (state.isActive) ? 'On' : 'Off';
+                const componentHTML =
+                  `&lt;button class="SlideBtn js-SlideBtn ${cls}">
+                    &lt;span class="SlideBtn-label visuallyhidden">${txt}&lt;/span>
+                    &lt;span class="SlideBtn-knob">&lt;/span>
+                  &lt;/button>`;
+                $container.html(componentHTML);
+                $container.find('.js-SlideBtn').on('click', () => {
+                  setState($container, state, {isActive: !state.isActive});
+                });
+              }
+            </code></pre>
+            <pre class="javascript"><code data-trim>
+              function setState($container, oldState, stateChanges) {
+                render($container, { ...oldState, ...newState });
+              }
+            </code></pre>
+            <pre class="javascript"><code data-trim>
+              render($('.js-BtnContainer'), { isActive: false });
+            </code></pre>
+
+            <aside class="notes">
+              Декларативное описание, функция явного состояния.
+
+              Но медленно. Knockout, Angular way.
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <ul>
+            <li>Медленный DOM - <b>Virtual DOM</b></li>
+            <li>UI как композиция функций - <b>Компоненты</b></li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <pre class="javascript"><code data-trim>
+              const html = '&lt;span class="SlideBtn-knob">&lt;/span>'
+              $container.innerHTML = html
+            </code></pre>
+          </section>
+
+          <section>
+            <pre class="javascript"><code data-trim>
+              const span = document.createElement('span')
+              span.className = 'SlideBtn-knob'
+              $container.appendNode(span)
+            </code></pre>
+          </section>
+
+          <section>
+            <pre class="javascript"><code data-trim>
+              const span = h('span', { className: 'SlideBtn-knob' })
+
+              render($container, span)
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Virtual DOM</h4>
+
+          <section>
+            Функция, описывающая DOM -> vnode
+            <pre class="javascript"><code data-trim>
+              h('span', { className: 'knob' })
+            </code></pre>
+
+            <pre class="javascript"><code data-trim>
+              {
+                nodeName: 'span',
+                attributes: {
+                  className: 'knob'
+                },
+                children: []
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            diff алгоритм для vnode
+            <pre class="javascript"><code data-trim>
+              const leftNode = h('div')
+              const rightNode = h('text')
+
+              diff(leftNode, rightNode)
+            </code></pre>
+
+            <pre class="javascript"><code data-trim>
+              {
+                a: leftNode,
+                0: vpatch&lt;REPLACE>(rightNode)
+                // a replace operation for the first node
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            patch для изменений в реальном DOM
+            <pre class="javascript"><code data-trim>
+              const leftNode = h('div')
+              const rightNode = h('text')
+
+              const rootNode = createElement(leftNode)
+              document.body.appendChild(rootNode)
+
+              const patches = diff(leftNode, rightNode)
+              patch(rootNode, patches)
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>JSX</h4>
+
+          <section>
+            <pre><code data-trim>
+              &lt;MyButton color="blue" shadowSize={2}>
+                Click Me
+              &lt;/MyButton>
+            </code></pre>
+
+            <pre class="javascript"><code data-trim>
+              // Или произвольная функция вместо React.createElement
+              React.createElement(
+                MyButton,
+                { color: 'blue', shadowSize: 2 },
+                'Click Me'
+              )
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Компоненты</h4>
+
+          <section>
+            <pre><code data-trim>
+              &lt;input type="text" />
+            </code></pre>
+
+            <pre><code data-trim>
+              &lt;MyButton color="blue" shadowSize={2}>
+                Click Me
+              &lt;/MyButton>
+            </code></pre>
+
+            <pre class="javascript"><code data-trim>
+              MyButton('blue', 2)
+            </code></pre>
+          </section>
+
+          <section>
+            <p>Vue lifecycle</p>
+            <img src="images/04-vue-lc.png" />
+          </section>
+
+          <section>
+            <p>React lifecycle</p>
+            <img src="images/04-react-lc.png" />
+          </section>
+        </section>
+
+        <section>
+          <pre class="javascript"><code data-trim>
+            function ToggleBtn({ isActive, onToggle }) {
+              const activeCls = isActive ? ' is-active' : '';
+              const activeTxt = isActive ? 'On' : 'Off';
+              return (
+                &lt;button className={'SlideBtn' + activeCls} onClick={onToggle}>
+                  &lt;span className="SlideBtn-label visuallyhidden">{activeTxt}&lt;/span>
+                  &lt;span className="SlideBtn-knob">&lt;/span>
+                &lt;/button>
+              );
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <ul>
+            <li><a href="https://medium.com/@abraztsov/how-virtual-dom-work-567128ed77e9">Как работает Virtual DOM?</a></li>
+            <li><a href="https://jrsinclair.com/articles/2018/react-redux-javascript-architecture/">React, Redux and JavaScript architecture</a></li>
+          </ul>
         </section>
 
         <section>
