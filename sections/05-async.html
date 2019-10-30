@@ -1,0 +1,343 @@
+<html>
+  <head>
+    <title>Shallow Frontend</title>
+    <link rel="stylesheet" href="../public/reveal.css">
+    <link rel="stylesheet" href="../public/theme/biege.css">
+    <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
+    <style type="text/css">
+      img {
+        max-height: 45vh !important;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>Asynchronous things</section>
+
+        <section>
+          <h4>Callback</h4>
+
+          <section>
+            <b>Events</b>
+
+            <pre class="js"><code data-trim>
+              window.addEventListener('click', func)
+            </code></pre>
+
+            <pre class="js"><code data-trim>
+              d3.selectAll('div').on('mouseover', func)
+            </code></pre>
+
+            <pre class="js"><code data-trim>
+              let xhr = new XMLHttpRequest()
+              xhr.onload = () => console.log(xhr.responseText)
+              xhr.onerror = () => console.log(xhr.statusText)
+              xhr.open('GET', 'http://www.example.org/example.txt')
+              xhr.send()
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Pass to another function</b>
+
+            <pre class="js"><code data-trim>
+              setTimeout(func, 500)
+            </code></pre>
+
+            <pre class="js"><code data-trim>
+              // node style
+              var fs = require('fs');
+
+              fs.readFile('sample.html', function(err, data) {
+                if (err) throw err;
+
+                console.log(data.toString('utf8'))
+              });
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Pass to another function</b>
+
+            <pre class="js"><code data-trim>
+              function get (url, callback) {
+                const xhr = new XMLHttpRequest()
+                xhr.onload = () => callback(null, xhr.responseText)
+                xhr.onerror = () => callback(xhr.statusText, null)
+                xhr.open('GET', url)
+                xhr.send()
+              }
+            </code></pre>
+
+            <pre class="js"><code data-trim>
+              get('http://www.example.org/example.txt', (err, text) => {
+                if (err) {
+                  console.log(err)
+                } else {
+                  console.log(text)
+                }
+                console.log('All done')
+              })
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Callback hell</b>
+
+            <pre class="js"><code data-trim>
+              fs.readdir(source, function (err, files) {
+                if (err) {
+                  console.log('Error finding files: ' + err)
+                } else {
+                  files.forEach(function (filename, fileIndex) {
+                    console.log(filename)
+                    gm(source + filename).size(function (err, values) {
+                      if (err) {
+                        console.log('Error identifying file size: ' + err)
+                      } else {
+                        console.log(filename + ' : ' + values)
+                        aspect = (values.width / values.height)
+                        widths.forEach(function (width, widthIndex) {
+                          height = Math.round(width / aspect)
+                          console.log('resizing ' + filename + 'to ' + height + 'x' + height)
+                          this.resize(width, height).write(dest + 'w' + width + '_' + filename, function(err) {
+                            if (err) console.log('Error writing file: ' + err)
+                          })
+                        }.bind(this))
+                      }
+                    })
+                  })
+                }
+              })
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <h4>Promise</h4>
+
+          <section>
+            <p>The <b>Promise</b> object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value</p>
+          </section>
+
+          <section>
+            <b>Lifecycle</b>
+
+            <ul>
+              <li><i>pending</i>: initial state, neither fulfilled nor rejected</li>
+              <li><i>fulfilled</i>: meaning that the operation completed successfully</li>
+              <li><i>rejected</i>: meaning that the operation failed</li>
+            </ul>
+            <img src="images/05-promises.png">
+          </section>
+
+          <section>
+            <pre class="js"><code data-trim>
+              function get (url) {
+                return new Promise((resolve, reject) => {
+                  const xhr = new XMLHttpRequest()
+                  xhr.open('GET', url)
+                  xhr.onload = () => resolve(xhr.responseText)
+                  xhr.onerror = () => reject(xhr.statusText)
+                  xhr.send()
+                })
+              }
+            </code></pre>
+
+            <pre class="js"><code data-trim>
+              get('http://www.example.org/example.txt')
+                .then(responseText => console.log(responseText))
+                .catch(statusText => console.log(statusText))
+                .finally(() => console.log('All done'))
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Chain</b>
+
+            <pre class="js"><code data-trim>
+              fetch('http://www.example.org/example.txt')
+                .then(response => response.text())
+                .catch(err => err.message)
+                .then(text => console.log(text))
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Multitask</b>
+
+            <pre class="js"><code data-trim>
+              Promise.all([...])
+              Promise.allSettled([...])
+              Promise.race([...])
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Generator</h4>
+
+          <section>
+            <pre class="js"><code data-trim>
+              function * generator(i) {
+                yield i
+                yield i + 10
+              }
+
+              const gen = generator(10)
+              // Generator object
+              gen.next()
+              // { value: 10, done: false }
+              gen.next()
+              // { value: 20, done: false }
+              gen.next()
+              // { value: undefined, done: true }
+            </code></pre>
+          </section>
+
+          <section>
+            <pre class="js"><code data-trim>
+              function * countdown (c) {
+                for (let i = c; i > 0; i--) {
+                  yield i
+                }
+              }
+              // [...countdown(3)]
+              // 3 2 1
+
+              function * wtf (c) {
+                for (let i = 1; i < c; i++) {
+                  yield* countdown(i)
+                }
+              }
+              // [...wtf(3)]
+              // 1 2 1 3 2 1
+            </code></pre>
+
+            <script>
+              function * countdown (c) {
+                for (let i = c; i > 0; i--) {
+                  yield i
+                }
+              }
+
+              function * wtf (c) {
+                for (let i = 1; i < c; i++) {
+                  yield* countdown(i)
+                }
+              }
+            </script>
+          </section>
+
+          <section>
+            <pre class="js"><code data-trim>
+              function * sum () {
+                let result = yield 'hit me'
+
+                while (true) {
+                  let add = yield result
+                  if (add === 0) { break }
+                  result += add
+                }
+              }
+
+              const gen = sum()
+              gen.next(0)
+              // { value: 'hit me', done: false }
+              gen.next(1)
+              // { value: 1, done: false }
+              gen.next(10)
+              // { value: 11, done: false }
+              gen.next(0)
+              // { value: undefined, done: true}
+            </code></pre>
+
+            <script>
+              function * sum () {
+                let result = yield 'hit me'
+
+                while (true) {
+                  let add = yield result
+                  if (add === 0) { break }
+                  result += add
+                }
+              }
+            </script>
+          </section>
+
+          <section>
+            <b>Co</b>
+
+            <pre class="js"><code data-trim>
+              co(function * () {
+                const user = yield getCurrentUser()
+                if (!user) {
+                  return
+                }
+
+                const [posts, comments] = yield [
+                  getUserPosts(user),
+                  getUserComments(user)
+                ]
+                console.log(posts, comments)
+              })
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Async/await</h4>
+
+          <section>
+            <pre class="js"><code data-trim>
+              async function () {
+                const user = await getCurrentUser()
+                if (!user) {
+                  return
+                }
+
+                const [posts, comments] = await Promise.all([
+                  getUserPosts(user),
+                  getUserComments(user)
+                ])
+                console.log(posts, comments)
+              })
+            </code></pre>
+          </section>
+
+          <section>
+            <pre class="js"><code data-trim>
+              async function () {
+                try {
+                  const response = await fetch('http://www.example.org/example.txt')
+                  const text = await response.text()
+                  console.log(text)
+                } catch (err) {
+                  console.log(err.message)
+                }
+              }
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <p>Спасибо за внимание</p>
+        </section>
+      </div>
+    </div>
+    <script src="../public/head.min.js"></script>
+    <script src="../public/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: false,
+        dependencies: [
+          { src: '../public/notes/notes.js', async: true },
+          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+        ]
+      })
+    </script>
+  </body>
+</html>
