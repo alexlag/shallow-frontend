@@ -117,6 +117,36 @@
         </section>
 
         <section>
+          <h4>Thunk</h4>
+
+          <section>
+            <p>Function that contains all of the context (state, functions, etc) it will need in order to carry out some sort of logic in the future</p>
+
+            <pre class="js"><code data-trim>
+              const add = (x,y) => x + y
+
+              const thunk = () => add(1,2)
+
+              thunk() // 3
+            </code></pre>
+          </section>
+
+          <section>
+            <b>Async thunk</b>
+
+            <pre class="js"><code data-trim>
+              const addAsync = (x, y, cb) => {
+                setTimeout(() => cb(x + y), 1000)
+              }
+
+              const thunk = cb => addAsync(10, 15, cb)
+
+              thunk(result => { /* 25 */  }
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
           <h4>Promise</h4>
 
           <section>
@@ -245,14 +275,10 @@
               }
 
               const gen = sum()
-              gen.next(0)
-              // { value: 'hit me', done: false }
-              gen.next(1)
-              // { value: 1, done: false }
-              gen.next(10)
-              // { value: 11, done: false }
-              gen.next(0)
-              // { value: undefined, done: true}
+              gen.next()   // { value: 'hit me', done: false }
+              gen.next(1)  // { value: 1, done: false }
+              gen.next(10) // { value: 11, done: false }
+              gen.next(0)  // { value: undefined, done: true}
             </code></pre>
 
             <script>
@@ -320,6 +346,54 @@
                 }
               }
             </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Reactive/Observable/Streams</h4>
+
+          <section>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Single</th>
+                  <th>Multiple</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Pull</strong>
+                  </td>
+                  <td>
+                    <a href="https://developer.mozilla.org/en-US/docs/Glossary/Function">
+                      <code>Function</code>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols">
+                      <code>Iterator</code>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Push</strong>
+                  </td>
+                  <td>
+                    <a href="https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Promise.jsm/Promise">
+                      <code>Promise</code>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="../class/es6/Observable.js~Observable.html">
+                      <code style="color: coral">Observable</code>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </section>
         </section>
 
