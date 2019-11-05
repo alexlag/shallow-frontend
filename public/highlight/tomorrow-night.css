@@ -2,6 +2,17 @@
 /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 /* Original theme - https://github.com/chriskempson/tomorrow-theme */
 /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css);
+
+code {
+  font-family: 'Fira Code', monospace !important;
+}
+
+@supports (font-variation-settings: normal) {
+  code {
+    font-family: 'Fira Code VF', monospace !important;
+  }
+}
 
 /* Tomorrow Comment */
 .hljs-comment,
