@@ -6,8 +6,13 @@
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
     <style type="text/css">
       img {
-        max-height: 45vh !important;
+        max-height: 40vh !important;
         width: auto;
+      }
+
+      h4 {
+        text-transform: capitalize !important;
+        font-weight: bolder;
       }
     </style>
   </head>
@@ -48,13 +53,13 @@
 
             <pre class="js"><code data-trim>
               // node style
-              var fs = require('fs');
+              var fs = require('fs')
 
               fs.readFile('sample.html', function(err, data) {
-                if (err) throw err;
+                if (err) throw err
 
                 console.log(data.toString('utf8'))
-              });
+              })
             </code></pre>
           </section>
 
@@ -125,7 +130,7 @@
             <pre class="js"><code data-trim>
               const add = (x,y) => x + y
 
-              const thunk = () => add(1,2)
+              const thunk = () => add(1, 2)
 
               thunk() // 3
             </code></pre>
@@ -203,6 +208,15 @@
               Promise.all([...])
               Promise.allSettled([...])
               Promise.race([...])
+            </code></pre>
+          </section>
+
+          <section>
+            <pre class="js"><code data-trim>
+              getUser()
+                .then(user =>
+                  getUserPosts(user).then(posts => ({ user, posts }))
+                ).then(({ user, posts }) => { /*... */ })
             </code></pre>
           </section>
         </section>
@@ -295,6 +309,28 @@
           </section>
 
           <section>
+            <b>More control</b>
+
+            <pre class="js"><code data-trim>
+              function * generator() {
+                while(true) {
+                  try { yield 42 }
+                  catch (e) { console.log('Error caught') }
+                }
+              }
+
+              const gen = generator()
+              gen.next()
+              // { value: 42, done: false }
+              gen.throw(new Error())
+              // "Error caught"
+              // { value: 42, done: false }
+              gen.return(0)
+              // {value: 0, done: true}
+            </code></pre>
+          </section>
+
+          <section>
             <b>Co</b>
 
             <pre class="js"><code data-trim>
@@ -308,7 +344,7 @@
                   getUserPosts(user),
                   getUserComments(user)
                 ]
-                console.log(posts, comments)
+                console.log(user, posts, comments)
               })
             </code></pre>
           </section>
@@ -350,7 +386,7 @@
         </section>
 
         <section>
-          <h4>Reactive/Observable/Streams</h4>
+          <h4>Observable/Streams/FRP</h4>
 
           <section>
             <table>
@@ -387,13 +423,107 @@
                     </a>
                   </td>
                   <td>
-                    <a href="../class/es6/Observable.js~Observable.html">
+                    <a href="https://github.com/tc39/proposal-observable">
                       <code style="color: coral">Observable</code>
                     </a>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </section>
+
+          <section>
+            <b><a href="https://rxjs.dev/guide/overview">RxJs</a></b>
+
+            <pre class="js"><code data-trim>
+              import { Observable } from 'rxjs'
+
+              const observable = new Observable(subscriber => {
+                subscriber.next(1)
+                subscriber.next(2)
+                subscriber.next(3)
+                setTimeout(() => {
+                  subscriber.next(4)
+                  subscriber.complete()
+                }, 1000)
+              })
+            </code></pre>
+          </section>
+
+          <section>
+            <b><a href="https://rxmarbles.com/">RxMarbles</a> by André Staltz</b>
+
+            <img src="images/05-rx-marbles-merge.png" />
+          </section>
+
+          <section>
+            <b><a href="https://github.com/acdlite/recompose">Recompose</a></b>
+
+            <pre class="js"><code data-trim>
+              const Counter = componentFromStream(props$ => {
+                const { handler: increment, stream: increment$ } = createEventHandler()
+                const { handler: decrement, stream: decrement$ } = createEventHandler()
+                const count$ = Observable.merge(
+                    increment$.mapTo(1),
+                    decrement$.mapTo(-1)
+                  )
+                  .startWith(0)
+                  .scan((count, n) => count + n, 0)
+
+                return props$.combineLatest(
+                  count$,
+                  (props, count) =>
+                    &lt;div className={props.className}>
+                      Count: {count}
+                      &lt;button onClick={increment}> + &lt;/button>
+                      &lt;button onClick={decrement}> - &lt;/button>
+                    &lt;/div>
+                )
+              })
+            </code></pre>
+          </section>
+
+          <section>
+            <b><a href="https://cycle.js.org/">Cycle.js</a> by André Staltz</b>
+
+            <img src="images/05-cycle.js.svg" />
+          </section>
+
+          <section>
+            <b><a href="https://cycle.js.org/">Cycle.js</a> by André Staltz</b>
+
+            <pre class="js"><code data-trim>
+              function main(sources) {
+                const decrement$ = sources.DOM
+                  .select('.decrement').events('click').mapTo(-1);
+
+                const increment$ = sources.DOM
+                  .select('.increment').events('click').mapTo(+1);
+
+                const action$ = xs.merge(decrement$, increment$);
+                const count$ = action$.fold((x, y) => x + y, 0);
+
+                const vdom$ = count$.map(count =>
+                  div([
+                    button('.decrement', 'Decrement'),
+                    button('.increment', 'Increment'),
+                    p('Counter: ' + count)
+                  ])
+                );
+                return { DOM: vdom$ };
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <ul>
+              <li>
+                <a href="https://www.youtube.com/watch?v=R4sTvHXkToQ">Кложура</a>
+              </li>
+              <li>
+                <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you've been missing</a>
+              </li>
+            </ul>
           </section>
         </section>
 
