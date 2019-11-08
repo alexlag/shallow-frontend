@@ -22,34 +22,33 @@
         <section>Redux async</section>
 
         <section>
+          <blockquote>
+            <b>You</b>: Okay, Redux, how do I load data?<br />
+            <b>Redux</b>: Don't care.<br />
+            <b>You</b>: Got anything to add, React?<br />
+            <b>React</b>: Not my problem.<br />
+          </blockquote>
+
+          <p class="fragment fade-in">¯\_(ツ)_/¯</p>
+        </section>
+
+        <section>
           <h4>Redux + API</h4>
 
           <section>
-            <p><b>Идея</b></p>
+            <p><b>Идея<span class="fragment"> → Redux</span></b></p>
 
             <ol>
-              <li>Показать спиннер</li>
-              <li>Сделать запрос</li>
-              <li>Результаты - сохранить и показать</li>
-              <li>Ошибку - сохранить и показать</li>
-              <li>Спрятать спиннер</li>
+              <li>Показать спиннер<span class="fragment"> → store + action</span></li>
+              <li>Сделать запрос<span class="fragment"> → ?</span></li>
+              <li>Результаты - показать<span class="fragment"> → store + action</span></li>
+              <li>Ошибку - показать<span class="fragment"> → store + action</span></li>
+              <li>Спрятать спиннер<span class="fragment"> → уже</span></li>
             </ol>
           </section>
 
           <section>
-            <p><b>Идея → Redux</b></p>
-
-            <ol>
-              <li>Показать спиннер → store + action</li>
-              <li>Сделать запрос → ?</li>
-              <li>Результаты - сохранить и показать → store + action</li>
-              <li>Ошибку - сохранить и показать → store + action</li>
-              <li>Спрятать спиннер</li>
-            </ol>
-          </section>
-
-          <section>
-            <p><b>Идея → Redux</b></p>
+            <p><b>Redux</b></p>
 
             <ol>
               <li>CALL_INIT</li>
@@ -60,7 +59,7 @@
           </section>
 
           <section>
-            <p><b>Идея → Redux</b></p>
+            <p><b>Redux</b></p>
 
             <ol>
               <li>callInit()</li>
@@ -78,9 +77,9 @@
                 callInit() // Показать спиннер
                 try {
                   const data = await API.call() // Сделать запрос
-                  callSuccess(data) // Результаты - сохранить и показать
+                  callSuccess(data) // Результаты - показать
                 } catch (err) {
-                  callFail(err) // Ошибку - сохранить и показать
+                  callFail(err) // Ошибку - показать
                 }
               }
             </code></pre>
@@ -105,9 +104,9 @@
                 callInit() // Показать спиннер
                 try {
                   const data = await API.call() // Сделать запрос
-                  callSuccess(data) // Результаты - сохранить и показать
+                  callSuccess(data) // Результаты - показать
                 } catch (err) {
-                  callFail(err) // Ошибку - сохранить и показать
+                  callFail(err) // Ошибку - показать
                 }
               }
             </code></pre>
@@ -117,7 +116,6 @@
             <b>Уровень компонента</b>
 
             <pre class="js"><code data-trim>
-              // In duck
               async function apiCall (dispatch) {
                 dispatch(callInit())
                 try {
@@ -127,8 +125,9 @@
                   dispatch(callFail(err))
                 }
               }
+            </code></pre>
 
-              // In component
+            <pre class="js"><code data-trim>
               onClick = e => {
                 e.preventDefault()
                 apiCall(this.props.dispatch)
@@ -162,8 +161,13 @@
 
           <section>
             <pre class="ts"><code data-trim>
-              type MiddlewareAPI = { dispatch: Dispatch, getState: () => State }
-              type Middleware = (api: MiddlewareAPI) => (next: Dispatch) => Dispatch
+              type MiddlewareAPI = {
+                dispatch: Dispatch,
+                getState: () => State
+              }
+
+              type Middleware =
+                api: MiddlewareAPI => next: Dispatch => Dispatch
             </code></pre>
 
             <pre class="js"><code data-trim>
@@ -178,7 +182,7 @@
 
             <pre class="js"><code data-trim>
               () => next => action => {
-                next(action)
+                return next(action)
               }
             </code></pre>
           </section>
@@ -220,7 +224,6 @@
           <h4>Redux-thunk</h4>
 
           <pre class="js"><code data-trim>
-            // In duck
             function apiCall () {
               return async function (dispatch) {
                 dispatch(callInit())
@@ -232,8 +235,9 @@
                 }
               }
             }
+          </code></pre>
 
-            // In component
+          <pre class="js"><code data-trim>
             onClick = e => {
               e.preventDefault()
               this.props.apiCall() // returns Promise
@@ -295,7 +299,8 @@
             <pre class="js"><code data-trim>
               // Effect → call the function API.call
               {
-                CALL: {
+                type: 'CALL',
+                payload: {
                   fn: Api.call,
                   args: []
                 }
