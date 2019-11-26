@@ -190,7 +190,7 @@
             <pre><code class="language-jsx">
               import React, { useState } from 'react'
 
-              function Counter({ counter, setCounter }) {
+              function Counter() {
                 const [counter, setCounter] = useState(0)
 
                 return (
@@ -243,17 +243,26 @@
               const data = useDataSource(DataSource, this.props.selectData)
             </code></pre>
           </section>
+
+          <section>
             <pre><code class="language-jsx">
               import React from 'react'
-              import { useSelector } from 'react-redux'
+              import { useSelector, useDispatch } from 'react-redux'
+              import { increment } from './actions'
 
               export const CounterComponent = () => {
                 const counter = useSelector(state => state.counter)
-                return &lt;div>{counter}&lt;/div>
+                const dispatch = useDispatch()
+
+                function handleClick () {
+                  dispatch(increment())
+                }
+
+                &lt;button onClick={handleClick}>
+                  { counter }
+                &lt;/button>
               }
             </code></pre>
-          <section>
-
           </section>
         </section>
 
