@@ -1,0 +1,278 @@
+<html>
+  <head>
+    <title>Shallow Frontend</title>
+    <link rel="stylesheet" href="../public/reveal.css">
+    <link rel="stylesheet" href="../public/theme/biege.css">
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>React hooks</section>
+
+        <section>
+          <ol>
+            <li>Как повторно использовать логику, не связанную с отображением?</li>
+            <li class="fragment">Как комбинировать эффекты?</li>
+          </ol>
+
+          <pre><code class="language-jsx">
+            class CommentList extends React.Component {
+              constructor(props) {
+                super(props)
+                this.handleChange = this.handleChange.bind(this)
+                this.state = { comments: DataSource.getComments() }
+              }
+
+              componentDidMount() {
+                DataSource.addChangeListener(this.handleChange)
+              }
+
+              componentWillUnmount() {
+                DataSource.removeChangeListener(this.handleChange)
+              }
+
+              handleChange() {
+                this.setState({ comments: DataSource.getComments() })
+              }
+
+              render() {
+                return (
+                  &lt;div>
+                    {this.state.comments.map((comment) => (
+                      &lt;Comment comment={comment} key={comment.id} />
+                    ))}
+                  &lt;/div>
+                )
+              }
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h4>Higher-order components (HOC)</h4>
+
+          <section>
+            <p>
+              Компонент высшего порядка — это функция, которая принимает компонент и возвращает новый компонент
+            </p>
+
+            <pre><code class="language-jsx">
+              const EnhancedComponent = higherOrderComponent(WrappedComponent)
+            </code></pre>
+
+            <pre class="js fragment"><code class="language-jsx">
+              // react-redux
+              export default connect(mapProps, mapDispatch)(WrappedComponent)
+            </code></pre>
+
+            <pre class="js fragment"><code class="language-jsx">
+              // react-router
+              // const { match, location, history } = this.props
+              export default withRouter(WrappedComponent)
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="language-jsx">
+              function withSubscription(WrappedComponent, selectData) {
+                return class extends React.Component {
+                  constructor(props) {
+                    super(props)
+                    this.handleChange = this.handleChange.bind(this)
+                    this.state = {
+                      data: selectData(DataSource, props)
+                    }
+                  }
+
+                  componentDidMount() {
+                    DataSource.addChangeListener(this.handleChange)
+                  }
+
+                  componentWillUnmount() {
+                    DataSource.removeChangeListener(this.handleChange)
+                  }
+
+                  handleChange() {
+                    this.setState({ data: selectData(DataSource, this.props) })
+                  }
+
+                  render() {
+                    return &lt;WrappedComponent data={this.state.data} {...this.props} />
+                  }
+                }
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <h4>Recompose</h4>
+
+            <pre><code class="language-jsx">
+              function Counter({ counter, setCounter }) {
+                return (
+                  &lt;button onClick={() => setCounter(counter + 1)}>
+                    { counter }
+                  &lt;/button>
+                )
+              }
+
+              withState('counter', 'setCounter', 0)(Counter)
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>Render props</h4>
+
+          <section>
+            <p>
+              Термин «рендер-проп» относится к возможности компонентов React разделять код между собой с помощью пропа, значение которого является функцией
+            </p>
+
+            <pre><code class="language-jsx">
+              &lt;DataProvider render={data => (
+                &lt;div>{data}&lt;/div>
+              )}/>
+            </code></pre>
+
+            <pre><code class="language-jsx">
+              // children
+              &lt;DataProvider>
+                {data => (
+                  &lt;div>{data}&lt;/div>
+                )}
+              &lt;/DataProvider>
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="language-jsx">
+              // react-router
+              &lt;Route path="/home" render={() => &lt;div>Home&lt;/div>} />
+            </code></pre>
+
+            <pre><code class="language-jsx">
+              class Subscription extends React.Component {
+                constructor(props) {
+                  super(props)
+                  this.handleChange = this.handleChange.bind(this)
+                  this.state = {
+                    data: this.props.selectData(DataSource, props)
+                  }
+                }
+
+                componentDidMount() {
+                  DataSource.addChangeListener(this.handleChange)
+                }
+
+                componentWillUnmount() {
+                  DataSource.removeChangeListener(this.handleChange)
+                }
+
+                handleChange() {
+                  this.setState({ data: this.props.selectData(DataSource) })
+                }
+
+                render() {
+                  return this.props.render(this.state.data)
+                }
+              }
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h4>React hooks</h4>
+
+          <section>
+            <pre><code class="language-jsx">
+              import React, { useState } from 'react'
+
+              function Counter({ counter, setCounter }) {
+                const [counter, setCounter] = useState(0)
+
+                return (
+                  &lt;button onClick={() => setCounter(counter + 1)}>
+                    { counter }
+                  &lt;/button>
+                )
+              }
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="language-jsx">
+              const [data, setData] = useState(null)
+
+              function updateData (newData) {
+                setData(selectData(newData))
+              }
+
+              useEffect(() => {
+                DataSource.addChangeListener(setData)
+
+                return () => {
+                  DataSource.removeChangeListener(setData)
+                }
+              })
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="language-jsx">
+              function useDataSource (dataSource, selectData) {
+                const [data, setData] = useState(null)
+
+                function updateData (newData) {
+                  setData(selectData(newData))
+                }
+
+                useEffect(() => {
+                  dataSource.addChangeListener(setData)
+
+                  return () => {
+                    dataSource.removeChangeListener(setData)
+                  }
+                })
+
+                return data
+              }
+
+              const data = useDataSource(DataSource, this.props.selectData)
+            </code></pre>
+          </section>
+            <pre><code class="language-jsx">
+              import React from 'react'
+              import { useSelector } from 'react-redux'
+
+              export const CounterComponent = () => {
+                const counter = useSelector(state => state.counter)
+                return &lt;div>{counter}&lt;/div>
+              }
+            </code></pre>
+          <section>
+
+          </section>
+        </section>
+
+        <section>
+          <p>Спасибо за внимание</p>
+        </section>
+      </div>
+    </div>
+
+    <script src="../public/head.min.js"></script>
+    <script src="../public/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: false,
+        dependencies: [
+          { src: '../public/notes/notes.js', async: true },
+          { src: '../public/prism/prism.js', async: true, callback() {} }
+        ]
+      })
+    </script>
+  </body>
+</html>
