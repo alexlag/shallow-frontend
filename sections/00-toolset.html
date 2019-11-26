@@ -3,12 +3,8 @@
     <title>Shallow Frontend</title>
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
-    <style type="text/css">
-      img {
-        max-height: 45vh !important;
-        width: auto;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -64,7 +60,8 @@
       Reveal.initialize({
         controls: false,
         dependencies: [
-          { src: '../public/notes/notes.js', async: true }
+          { src: '../public/notes/notes.js', async: true },
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>

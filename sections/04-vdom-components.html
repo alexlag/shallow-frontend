@@ -4,12 +4,8 @@
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
-    <style type="text/css">
-      img {
-        max-height: 50vh !important;
-        width: auto;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -24,12 +20,12 @@
           </section>
 
           <section>
-            <pre class="html"><code data-trim>
+            <pre><code class="language-html">
               &lt;button class="SlideBtn is-active js-SlideBtn">
                 &lt;span class="SlideBtn-knob">&lt;/span>
               &lt;/button>
             </code></pre>
-            <pre><code data-trim>
+            <pre><code class="language-js">
               $('.js-SlideBtn').on('click', (evt) => {
                 $(evt.currentTarget).toggleClass('is-active');
               });
@@ -41,14 +37,14 @@
           </section>
 
           <section>
-            <pre class="html"><code data-trim>
+            <pre><code class="language-html">
             &lt;button class="SlideBtn is-active js-SlideBtn">
               &lt;span class="SlideBtn-label visuallyhidden">On&lt;/span>
               &lt;span class="SlideBtn-knob">&lt;/span>
             &lt;/button>
             </code></pre>
 
-            <pre><code data-trim>
+            <pre><code class="language-js">
               $('.js-SlideBtn').on('click', (evt) => {
                 const $btn = $(evt.currentTarget);
                 const isActive = $btn.hasClass('is-active');
@@ -69,7 +65,7 @@
           </section>
 
           <section>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               function render($container, state) {
                 const cls = (state.isActive) ? 'is-active' : '';
                 const txt = (state.isActive) ? 'On' : 'Off';
@@ -84,12 +80,12 @@
                 });
               }
             </code></pre>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               function setState($container, oldState, stateChanges) {
                 render($container, { ...oldState, ...newState });
               }
             </code></pre>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               render($('.js-BtnContainer'), { isActive: false });
             </code></pre>
 
@@ -110,14 +106,14 @@
 
         <section>
           <section>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               const html = '&lt;span class="SlideBtn-knob">&lt;/span>'
               $container.innerHTML = html
             </code></pre>
           </section>
 
           <section>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               const span = document.createElement('span')
               span.className = 'SlideBtn-knob'
               $container.appendNode(span)
@@ -125,7 +121,7 @@
           </section>
 
           <section>
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               const span = h('span', { className: 'SlideBtn-knob' })
 
               render($container, span)
@@ -138,11 +134,11 @@
 
           <section>
             Функция, описывающая DOM -> vnode
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               h('span', { className: 'knob' })
             </code></pre>
 
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               {
                 nodeName: 'span',
                 attributes: {
@@ -155,14 +151,14 @@
 
           <section>
             diff алгоритм для vnode
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               const leftNode = h('div')
               const rightNode = h('text')
 
               diff(leftNode, rightNode)
             </code></pre>
 
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               {
                 a: leftNode,
                 0: vpatch&lt;REPLACE>(rightNode)
@@ -173,7 +169,7 @@
 
           <section>
             patch для изменений в реальном DOM
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               const leftNode = h('div')
               const rightNode = h('text')
 
@@ -190,13 +186,13 @@
           <h4>JSX</h4>
 
           <section>
-            <pre><code data-trim>
+            <pre><code class="language-jsx">
               &lt;MyButton color="blue" shadowSize={2}>
                 Click Me
               &lt;/MyButton>
             </code></pre>
 
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-js">
               // Или произвольная функция вместо React.createElement
               React.createElement(
                 MyButton,
@@ -211,17 +207,17 @@
           <h4>Компоненты</h4>
 
           <section>
-            <pre><code data-trim>
+            <pre><code class="language-jsx">
               &lt;input type="text" />
             </code></pre>
 
-            <pre><code data-trim>
+            <pre><code class="language-jsx">
               &lt;MyButton color="blue" shadowSize={2}>
                 Click Me
               &lt;/MyButton>
             </code></pre>
 
-            <pre class="javascript"><code data-trim>
+            <pre><code class="language-jsx">
               MyButton('blue', 2)
             </code></pre>
           </section>
@@ -238,7 +234,7 @@
         </section>
 
         <section>
-          <pre class="javascript"><code data-trim>
+          <pre><code class="language-js">
             function ToggleBtn({ isActive, onToggle }) {
               const activeCls = isActive ? ' is-active' : '';
               const activeTxt = isActive ? 'On' : 'Off';
@@ -271,7 +267,7 @@
         controls: false,
         dependencies: [
           { src: '../public/notes/notes.js', async: true },
-          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>

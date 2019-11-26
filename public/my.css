@@ -1,0 +1,26 @@
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.207/distr/fira_code.css);
+
+img {
+  max-height: 40vh !important;
+  width: auto;
+}
+
+h4 {
+  text-transform: capitalize !important;
+  font-weight: bolder;
+}
+
+pre {
+  padding: 0 !important;
+}
+
+code {
+  font-size: .5em !important;
+  font-family: 'Fira Code', monospace !important;
+}
+
+@supports (font-variation-settings: normal) {
+  code {
+    font-family: 'Fira Code VF', monospace !important;
+  }
+}

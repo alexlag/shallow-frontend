@@ -4,17 +4,8 @@
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
-    <style type="text/css">
-      img {
-        max-height: 40vh !important;
-        width: auto;
-      }
-
-      h4 {
-        text-transform: capitalize !important;
-        font-weight: bolder;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -72,7 +63,7 @@
           <section>
             <p><b>Идея → Redux + Code</b></p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               async function apiCall () {
                 callInit() // Показать спиннер
                 try {
@@ -96,7 +87,7 @@
           <section>
             <b>Уровень компонента</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               onClick = async e => {
                 e.preventDefault()
                 const { callInit, callSuccess, callFail } = this.props
@@ -115,7 +106,7 @@
           <section>
             <b>Уровень компонента</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               async function apiCall (dispatch) {
                 dispatch(callInit())
                 try {
@@ -127,7 +118,7 @@
               }
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               onClick = e => {
                 e.preventDefault()
                 apiCall(this.props.dispatch)
@@ -144,7 +135,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               import { createStore, applyMiddleware } from 'redux'
               import logger from 'redux-logger'
               import { composeWithDevTools } from 'redux-devtools-extension'
@@ -160,7 +151,7 @@
           </section>
 
           <section>
-            <pre class="ts"><code data-trim>
+            <pre><code class="language-ts">
               type MiddlewareAPI = {
                 dispatch: Dispatch,
                 getState: () => State
@@ -170,7 +161,7 @@
                 api: MiddlewareAPI => next: Dispatch => Dispatch
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               ({ getState, dispatch }) => next => action => {
                 // ...
               }
@@ -180,7 +171,7 @@
           <section>
             <p><b>noop</b></p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               () => next => action => {
                 return next(action)
               }
@@ -190,7 +181,7 @@
           <section>
             <p><b>logger</b></p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               ({ getState }) => next => action => {
                 console.group(action.type)
                 console.info('dispatching', action)
@@ -208,7 +199,7 @@
           <section>
             <p><b>thunk</b></p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               ({ getState, dispatch }) => next => action => {
                 if (typeof action === 'function') {
                   return action(dispatch, getState)
@@ -223,7 +214,7 @@
         <section>
           <h4>Redux-thunk</h4>
 
-          <pre class="js"><code data-trim>
+          <pre><code class="language-js">
             function apiCall () {
               return async function (dispatch) {
                 dispatch(callInit())
@@ -237,7 +228,7 @@
             }
           </code></pre>
 
-          <pre class="js"><code data-trim>
+          <pre><code class="language-js">
             onClick = e => {
               e.preventDefault()
               this.props.apiCall() // returns Promise
@@ -249,7 +240,7 @@
           <h4>Redux-saga</h4>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               import { createStore, applyMiddleware } from 'redux'
               import createSagaMiddleware from 'redux-saga'
 
@@ -268,14 +259,14 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               onClick = e => {
                 e.preventDefault()
                 this.props.callInit()
               }
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               import { takeEvery, call, put } from 'redux-saga/effects'
 
               function * apiFlow ({ payload }) {
@@ -296,7 +287,7 @@
           <section>
             <p><b>Effects</b></p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               // Effect → call the function API.call
               {
                 type: 'CALL',
@@ -321,7 +312,7 @@
         controls: false,
         dependencies: [
           { src: '../public/notes/notes.js', async: true },
-          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>

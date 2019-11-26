@@ -4,12 +4,8 @@
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
-    <style type="text/css">
-      img {
-        max-height: 45vh !important;
-        width: auto;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -17,7 +13,7 @@
         <section>JS Delivery</section>
 
         <section>
-          <pre class="html"><code data-trim>
+          <pre><code class="language-html">
             &lt;input type="button" value="Save" onclick="save();"/>
             &lt;script>
               function save() {
@@ -28,7 +24,7 @@
         </section>
 
         <section>
-          <pre class="html"><code data-trim>
+          <pre><code class="language-html">
             &lt;input id="main" type="button" value="Save" />
 
             &lt;script src="jquery.js">&lt;/script>
@@ -45,7 +41,7 @@
         <section>
           <section>
             <b>Модульность</b><br>
-            <pre><code data-trim>
+            <pre><code class="language-js">
             var MyNamespace = (function() {
               function save(){
                 //...
@@ -60,7 +56,7 @@
 
           <section>
             <b>CommonJS</b><br>
-            <pre><code data-trim>
+            <pre><code class="language-js">
             var dep = require('dep');
 
             module.exports = {
@@ -73,7 +69,7 @@
 
           <section>
             <b>Asynchronous Module Definition</b><br>
-            <pre><code data-trim>
+            <pre><code class="language-js">
             define(['dep'], function(dep) {
 
               return {
@@ -87,7 +83,7 @@
 
           <section>
             <b>ES6 Modules</b><br>
-            <pre><code data-trim>
+            <pre><code class="language-js">
             import * as dep from 'dep';
 
             export function save() {
@@ -98,33 +94,23 @@
         </section>
 
         <section>
-          <section>
-            <b>Бандльность</b><br>
-            <pre class="html"><code data-trim>
-              &lt;script src="jquery.js">&lt;/script>
-            </code></pre>
-          </section>
+          <b>Бандльность</b><br>
 
-          <section>
-            <b>Бандльность</b><br>
-            <pre class="html"><code data-trim>
-              &lt;script src="jquery.min.js">&lt;/script>
-            </code></pre>
-          </section>
+          <pre><code class="language-html">
+            &lt;script src="jquery.js">&lt;/script>
+          </code></pre>
 
-          <section>
-            <b>Бандльность</b><br>
-            <pre class="html"><code data-trim>
-              &lt;script src="https://cdnjs.com/jquery/3.2.1/jquery.min.js">&lt;/script>
-            </code></pre>
-          </section>
+          <pre class="fragment"><code class="language-html">
+            &lt;script src="jquery.min.js">&lt;/script>
+          </code></pre>
 
-          <section>
-            <b>Бандльность</b><br>
-            <pre class="html"><code data-trim>
-              &lt;script src="https://cdn.example.com/bundle.6e1b0c8f.js">&lt;/script>
-            </code></pre>
-          </section>
+          <pre class="fragment"><code class="language-html">
+            &lt;script src="https://cdnjs.com/jquery/3.2.1/jquery.min.js">&lt;/script>
+          </code></pre>
+
+          <pre class="fragment"><code class="language-html">
+            &lt;script src="https://cdn.example.com/bundle.6e1b0c8f.js">&lt;/script>
+          </code></pre>
         </section>
 
         <section>
@@ -144,7 +130,7 @@
         controls: false,
         dependencies: [
           { src: '../public/notes/notes.js', async: true },
-          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>

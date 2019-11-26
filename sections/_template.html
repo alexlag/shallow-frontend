@@ -3,18 +3,8 @@
     <title>Shallow Frontend</title>
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
-    <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
-    <style type="text/css">
-      img {
-        max-height: 40vh !important;
-        width: auto;
-      }
-
-      h4 {
-        text-transform: capitalize !important;
-        font-weight: bolder;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -39,7 +29,7 @@
         controls: false,
         dependencies: [
           { src: '../public/notes/notes.js', async: true },
-          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>

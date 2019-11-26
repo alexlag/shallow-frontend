@@ -4,17 +4,8 @@
     <link rel="stylesheet" href="../public/reveal.css">
     <link rel="stylesheet" href="../public/theme/biege.css">
     <link rel="stylesheet" href="../public/highlight/tomorrow-night.css">
-    <style type="text/css">
-      img {
-        max-height: 40vh !important;
-        width: auto;
-      }
-
-      h4 {
-        text-transform: capitalize !important;
-        font-weight: bolder;
-      }
-    </style>
+    <link rel="stylesheet" href="../public/prism/prism.css">
+    <link rel="stylesheet" href="../public/my.css">
   </head>
   <body>
     <div class="reveal">
@@ -27,15 +18,15 @@
           <section>
             <b>Events</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               window.addEventListener('click', func)
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               d3.selectAll('div').on('mouseover', func)
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               let xhr = new XMLHttpRequest()
               xhr.onload = () => console.log(xhr.responseText)
               xhr.onerror = () => console.log(xhr.statusText)
@@ -47,11 +38,11 @@
           <section>
             <b>Pass to another function</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               setTimeout(func, 500)
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               // node style
               var fs = require('fs')
 
@@ -66,7 +57,7 @@
           <section>
             <b>Pass to another function</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function get (url, callback) {
                 const xhr = new XMLHttpRequest()
                 xhr.onload = () => callback(null, xhr.responseText)
@@ -76,7 +67,7 @@
               }
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               get('http://www.example.org/example.txt', (err, text) => {
                 if (err) {
                   console.log(err)
@@ -91,7 +82,7 @@
           <section>
             <b>Callback hell</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               fs.readdir(source, function (err, files) {
                 if (err) {
                   console.log('Error finding files: ' + err)
@@ -127,7 +118,7 @@
           <section>
             <p>Function that contains all of the context (state, functions, etc) it will need in order to carry out some sort of logic in the future</p>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               const add = (x,y) => x + y
 
               const thunk = () => add(1, 2)
@@ -139,7 +130,7 @@
           <section>
             <b>Async thunk</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               const addAsync = (x, y, cb) => {
                 setTimeout(() => cb(x + y), 1000)
               }
@@ -170,7 +161,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function get (url) {
                 return new Promise((resolve, reject) => {
                   const xhr = new XMLHttpRequest()
@@ -182,7 +173,7 @@
               }
             </code></pre>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               get('http://www.example.org/example.txt')
                 .then(responseText => console.log(responseText))
                 .catch(statusText => console.log(statusText))
@@ -193,7 +184,7 @@
           <section>
             <b>Chain</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               fetch('http://www.example.org/example.txt')
                 .then(response => response.text())
                 .catch(err => err.message)
@@ -204,7 +195,7 @@
           <section>
             <b>Multitask</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               Promise.all([...])
               Promise.allSettled([...])
               Promise.race([...])
@@ -212,7 +203,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               getUser()
                 .then(user =>
                   getUserPosts(user).then(posts => ({ user, posts }))
@@ -225,7 +216,7 @@
           <h4>Generator</h4>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function * generator(i) {
                 yield i
                 yield i + 10
@@ -243,7 +234,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function * countdown (c) {
                 for (let i = c; i > 0; i--) {
                   yield i
@@ -277,7 +268,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function * sum () {
                 let result = yield 'hit me'
 
@@ -311,7 +302,7 @@
           <section>
             <b>More control</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function * generator() {
                 while(true) {
                   try { yield 42 }
@@ -339,7 +330,7 @@
           <section>
             <b>Co</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               co(function * () {
                 const user = yield getCurrentUser()
                 if (!user) {
@@ -360,7 +351,7 @@
           <h4>Async/await</h4>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               async function () {
                 const user = await getCurrentUser()
                 if (!user) {
@@ -377,7 +368,7 @@
           </section>
 
           <section>
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               async function () {
                 try {
                   const response = await fetch('http://www.example.org/example.txt')
@@ -441,7 +432,7 @@
           <section>
             <b><a href="https://rxjs.dev/guide/overview">RxJs</a></b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               import { Observable } from 'rxjs'
 
               const observable = new Observable(subscriber => {
@@ -465,7 +456,7 @@
           <section>
             <b><a href="https://github.com/acdlite/recompose">Recompose</a></b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               const Counter = componentFromStream(props$ => {
                 const { handler: increment, stream: increment$ } = createEventHandler()
                 const { handler: decrement, stream: decrement$ } = createEventHandler()
@@ -498,7 +489,7 @@
           <section>
             <b><a href="https://cycle.js.org/">Cycle.js</a> by André Staltz</b>
 
-            <pre class="js"><code data-trim>
+            <pre><code class="language-js">
               function main(sources) {
                 const decrement$ = sources.DOM
                   .select('.decrement').events('click').mapTo(-1);
@@ -555,7 +546,7 @@
         controls: false,
         dependencies: [
           { src: '../public/notes/notes.js', async: true },
-          { src: '../public/highlight/highlight.js', async: true, callback() { hljs.initHighlightingOnLoad() } }
+          { src: '../public/prism/prism.js', async: true, callback() {} }
         ]
       })
     </script>
